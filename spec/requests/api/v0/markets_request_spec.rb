@@ -117,7 +117,6 @@ RSpec.describe 'Markets API' do
     # let(:market_vendor_1) { MarketVendor.new(market_id: market_1.id, vendor_id: vendor_1.id)}
     # let(:market_vendor_2) { MarketVendor.new(market_id: market_2.id, vendor_id: vendor_2.id)}
     it 'happy path' do
-      require 'pry'; binding.pry
       get "/api/v0/markets/#{@market_1.id}/vendors}"
 
       expect(response).to be_successful

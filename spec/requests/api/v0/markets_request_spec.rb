@@ -71,9 +71,9 @@ RSpec.describe 'Markets API' do
 
       data = JSON.parse(response.body, symbolize_names: true)
 
-      error = data[:error]
+      error = data[:errors]
 
-      expect(error).to eq("Couldn't find Market with 'id'=1")
+      expect(error).to eq("Couldn't find Market with 'id'=129281817")
     end
   end
   describe 'gets all vendors for a market' do
@@ -82,6 +82,9 @@ RSpec.describe 'Markets API' do
 
       vendor_1 = create(:vendor)
       vendor_2 = create(:vendor)
+
+      # MarketVendor.create(market_id: market_1.id, vendor_id: vendor_1.id)
+      # MarketVendor.create(market_id: market_1.id, vendor_id: vendor_2.id)
 
       get "/api/v0/markets/#{market_1.id}/vendors"
 
@@ -111,7 +114,7 @@ RSpec.describe 'Markets API' do
       end
     end
 
-    xit 'sad path' do
+    it 'sad path' do
       get "/api/v0/markets/1231231231/vendors"
 
       expect(response).to_not be_successful
@@ -121,23 +124,17 @@ RSpec.describe 'Markets API' do
   end
 
   describe 'gets one vendor' do
-    # before :each do
-    #   @market_1 = Market.create()
-    #   @vendor_1 = @market_1.vendors.create(
-    #     name: 'Vendor 1',
-    #     description: 'Description 1',
-    #     contact_name: 'Contact 1',
-    #     contact_phone: '123-456-7890',
-    #     credit_accepted: true
-    #     )
-    # end
     it 'happy path' do
+      vendor_1 = create(:vendor)
 
-      get "/api/v0/vendors/#{@vendor_1.id}"
+      get "/api/v0/vendors/#{vendor_1.id}"
     end
 
     it 'sad path' do
+      get "/api/v0/vendors/12398591"
       
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
     end
   end
 

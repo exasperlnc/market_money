@@ -11,7 +11,7 @@ class Api::V0::VendorsController < ApplicationController
   end
 
   def create
-    render json: VendorSerializer.new(vendor_params), STATUS: 201
+    render json: VendorSerializer.new(vendor_params), status: 201
   end
 
   private

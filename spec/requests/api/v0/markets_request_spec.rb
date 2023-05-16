@@ -140,4 +140,25 @@ RSpec.describe 'Markets API' do
     end
   end
 
+  describe 'gets one vendor' do
+    before :each do
+      @market_1 = Market.create()
+      @vendor_1 = @market_1.vendors.create(
+        name: 'Vendor 1',
+        description: 'Description 1',
+        contact_name: 'Contact 1',
+        contact_phone: '123-456-7890',
+        credit_accepted: true
+        )
+    end
+    it 'happy path' do
+
+      get "/api/v0/markets/#{@market_1.id}/vendors/#{@vendor_1.id}"
+    end
+
+    it 'sad path' do
+      
+    end
+  end
+
 end

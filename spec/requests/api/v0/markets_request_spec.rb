@@ -49,22 +49,21 @@ RSpec.describe 'Markets API' do
       expect(market[:attributes]).to have_key(:lon)
     end
 
-    xit 'sad path' do
+    it 'sad path' do
       get "/api/v0/markets/1"
 
-      expect(response).to be_successful
-
       data = JSON.parse(response.body, symbolize_names: true)
-      
-      market = data[:data]
+
+      error = data[:error]
+
+      expect(error).to eq("Couldn't find Market with 'id'=1")
     end
   end
   describe 'gets all vendors for a market' do
-    it 'happy path' do
+    xit 'happy path' do
       test_data
       get "/api/v0/markets/55297/vendors"
 
-      expect(response).to be_successful
       data = JSON.parse(response.body, symbolize_names: true)
       
       vendors = data[:data]

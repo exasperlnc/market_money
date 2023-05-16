@@ -60,9 +60,8 @@ RSpec.describe 'Markets API' do
     end
   end
   describe 'gets all vendors for a market' do
-    before :each do
-      @market_1 = Market.new(id:1)
-      @vendor_1 = Vendor.new(
+      @market_1 = Market.create()
+      @vendor_1 = Vendor.create(
         # id: 1,
         name: 'Vendor 1',
         description: 'Description 1',
@@ -70,7 +69,7 @@ RSpec.describe 'Markets API' do
         contact_phone: '123-456-7890',
         credit_accepted: true
         )
-      @vendor_2 = Vendor.new(
+      @vendor_2 = Vendor.create(
         # id: 2,
         name: 'Vendor 2',
         description: 'Description 2',
@@ -78,7 +77,7 @@ RSpec.describe 'Markets API' do
         contact_phone: '223-456-7890',
         credit_accepted: true
         )
-      @vendor_3 = Vendor.new(
+      @vendor_3 = Vendor.create(
         # id: 3,  
         name: 'Vendor 3',
         description: 'Description 3',
@@ -86,9 +85,8 @@ RSpec.describe 'Markets API' do
         contact_phone: '323-456-7890',
         credit_accepted: true
         )
-      @market_vendor_1 = MarketVendor.new(market_id: @market_1.id, vendor_id: @vendor_1.id)
-      @market_vendor_2 = MarketVendor.new(market_id: @market_1.id, vendor_id: @vendor_2.id)
-    end
+      @market_vendor_1 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_1.id)
+      @market_vendor_2 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_2.id)
     # let(:market_1) { Market.new(id:1)}
     # let(:vendor_1) {Vendor.new(
     #                            id: 1,
@@ -117,10 +115,10 @@ RSpec.describe 'Markets API' do
     # let(:market_vendor_1) { MarketVendor.new(market_id: market_1.id, vendor_id: vendor_1.id)}
     # let(:market_vendor_2) { MarketVendor.new(market_id: market_2.id, vendor_id: vendor_2.id)}
     it 'happy path' do
-      get "/api/v0/markets/#{@market_1.id}/vendors}"
+      get "/api/v0/markets/#{@market_1.id}/vendors"
 
       expect(response).to be_successful
-
+      # require 'pry'; binding.pry
       data = JSON.parse(response.body, symbolize_names: true)
       
       vendors = data[:data]
@@ -153,7 +151,7 @@ RSpec.describe 'Markets API' do
     end
     it 'happy path' do
 
-      get "/api/v0/markets/#{@market_1.id}/vendors/#{@vendor_1.id}"
+      get "/api/v0/vendors/#{@vendor_1.id}"
     end
 
     it 'sad path' do

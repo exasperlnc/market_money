@@ -8,6 +8,5 @@ FactoryBot.define do
     zip { Faker::Address.zip }
     lat { Faker::Address.latitude }
     lon { Faker::Address.longitude }
-    vendors { 'MyArray' }
   end
 end

@@ -60,9 +60,65 @@ RSpec.describe 'Markets API' do
     end
   end
   describe 'gets all vendors for a market' do
-    let(:market_1) { Market.new()}
+    before :each do
+      @market_1 = Market.new(id:1)
+      @vendor_1 = Vendor.new(
+        # id: 1,
+        name: 'Vendor 1',
+        description: 'Description 1',
+        contact_name: 'Contact 1',
+        contact_phone: '123-456-7890',
+        credit_accepted: true
+        )
+      @vendor_2 = Vendor.new(
+        # id: 2,
+        name: 'Vendor 2',
+        description: 'Description 2',
+        contact_name: 'Contact 2',
+        contact_phone: '223-456-7890',
+        credit_accepted: true
+        )
+      @vendor_3 = Vendor.new(
+        # id: 3,  
+        name: 'Vendor 3',
+        description: 'Description 3',
+        contact_name: 'Contact 3',
+        contact_phone: '323-456-7890',
+        credit_accepted: true
+        )
+      @market_vendor_1 = MarketVendor.new(market_id: @market_1.id, vendor_id: @vendor_1.id)
+      @market_vendor_2 = MarketVendor.new(market_id: @market_1.id, vendor_id: @vendor_2.id)
+    end
+    # let(:market_1) { Market.new(id:1)}
+    # let(:vendor_1) {Vendor.new(
+    #                            id: 1,
+    #                            name: 'Vendor 1',
+    #                            description: 'Description 1',
+    #                            contact_name: 'Contact 1',
+    #                            contact_phone: '123-456-7890',
+    #                            credit_accepted: true
+    #                            )}
+    #   let(:vendor_2) {Vendor.new(
+    #                             id: 2,
+    #                             name: 'Vendor 2',
+    #                             description: 'Description 2',
+    #                             contact_name: 'Contact 2',
+    #                             contact_phone: '223-456-7890',
+    #                             credit_accepted: true
+    #                             )}
+    # let(:vendor_3) {Vendor.new(
+    #                               id: 3,  
+    #                               name: 'Vendor 3',
+    #                               description: 'Description 3',
+    #                               contact_name: 'Contact 3',
+    #                               contact_phone: '323-456-7890',
+    #                               credit_accepted: true
+    #                               )}
+    # let(:market_vendor_1) { MarketVendor.new(market_id: market_1.id, vendor_id: vendor_1.id)}
+    # let(:market_vendor_2) { MarketVendor.new(market_id: market_2.id, vendor_id: vendor_2.id)}
     it 'happy path' do
-      get "/api/v0/markets/#{market_1.id}/vendors}"
+      require 'pry'; binding.pry
+      get "/api/v0/markets/#{@market_1.id}/vendors}"
 
       expect(response).to be_successful
 

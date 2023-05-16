@@ -27,7 +27,7 @@ RSpec.describe 'Markets API' do
     end
   end
   describe 'gets one market' do
-    it 'happy paht' do
+    it 'happy path' do
       create_list(:market, 2)
 
       get "/api/v0/markets/#{Market.all.first.id}"
@@ -60,9 +60,12 @@ RSpec.describe 'Markets API' do
     end
   end
   describe 'gets all vendors for a market' do
-    xit 'happy path' do
-      test_data
-      get "/api/v0/markets/55297/vendors"
+    it 'happy path' do
+      market_1 = create(:market)
+
+      vendor_1 = create(:vendor)
+      vendor_2 = create(:vendor)
+      get "/api/v0/markets/#{market_1.id}/vendors"
 
       data = JSON.parse(response.body, symbolize_names: true)
       

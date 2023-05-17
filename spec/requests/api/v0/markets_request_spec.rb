@@ -138,4 +138,13 @@ RSpec.describe 'Markets API' do
     end
   end
 
+  describe 'creates a vendor' do
+    xit 'happy path' do
+      #set up params to send to create method
+      post '/api/v0/vendors'
+
+      expect(response).to be_successful
+      
+    end
+  end
 end

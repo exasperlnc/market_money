@@ -99,5 +99,12 @@ RSpec.describe "Vendors API" do
       expect(last_vendor.contact_phone).to_not eq(vendor_params[:contact_phone])
       expect(last_vendor.credit_accepted).to_not eq(vendor_params[:credit_accepted])
     end
+
+    it 'sad path' do
+      delete "/api/v0/vendors/1296781298"
+      
+      expect(response).to_not be_successful
+      expect(response.status).to eq(404)
+    end
   end
 end

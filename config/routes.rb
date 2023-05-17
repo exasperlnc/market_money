@@ -6,6 +6,9 @@ Rails.application.routes.draw do
       end
       resources :vendors, only: [:show, :create, :destroy, :update]
       resources :market_vendors, only: [:create, :destroy]
+      namespace :markets do
+        resources :search, only: [:index]
+      end
     end
   end
 end

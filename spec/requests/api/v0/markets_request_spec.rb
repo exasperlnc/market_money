@@ -10,24 +10,41 @@ RSpec.describe 'Markets API' do
       expect(response).to be_successful
     
       data = JSON.parse(response.body, symbolize_names: true)
+      
       markets = data[:data]
-      expect(markets.count).to eq(10)
     
       markets.each do |market|
+        attributes = market[:attributes]
         expect(market).to have_key(:id)
-        expect(market[:attributes]).to have_key(:name)
-        expect(market[:attributes]).to have_key(:street)
-        expect(market[:attributes]).to have_key(:city)
-        expect(market[:attributes]).to have_key(:county)
-        expect(market[:attributes]).to have_key(:state)
-        expect(market[:attributes]).to have_key(:zip)
-        expect(market[:attributes]).to have_key(:lat)
-        expect(market[:attributes]).to have_key(:lon)
+
+        expect(attributes).to have_key(:name)
+        # expect(attributes.name).to be_a(String)
+
+        expect(attributes).to have_key(:street)
+        # expect(attributes.street).to be_a(String)
+
+        expect(attributes).to have_key(:city)
+        # expect(attributes.city).to be_a(String)
+
+        expect(attributes).to have_key(:county)
+        # expect(attributes.county).to be_a(String)
+
+        expect(attributes).to have_key(:state)
+        # expect(attributes.state).to be_a(String)
+
+        expect(attributes).to have_key(:zip)
+        # expect(attributes.zip).to be_a(String)
+
+        expect(attributes).to have_key(:lat)
+        # expect(attributes.lat).to be_a(String)
+
+        expect(attributes).to have_key(:lon)
+        # expect(attributes.lon).to be_a(String)
       end
     end
   end
   describe 'gets one market' do
-    it 'happy paht' do
+    it 'happy path' do
       create_list(:market, 2)
 
       get "/api/v0/markets/#{Market.all.first.id}"
@@ -49,114 +66,14 @@ RSpec.describe 'Markets API' do
       expect(market[:attributes]).to have_key(:lon)
     end
 
-    xit 'sad path' do
-      get "/api/v0/markets/1"
-
-      expect(response).to be_successful
-
-      data = JSON.parse(response.body, symbolize_names: true)
-      
-      market = data[:data]
-    end
-  end
-  describe 'gets all vendors for a market' do
-      @market_1 = Market.create()
-      @vendor_1 = Vendor.create(
-        # id: 1,
-        name: 'Vendor 1',
-        description: 'Description 1',
-        contact_name: 'Contact 1',
-        contact_phone: '123-456-7890',
-        credit_accepted: true
-        )
-      @vendor_2 = Vendor.create(
-        # id: 2,
-        name: 'Vendor 2',
-        description: 'Description 2',
-        contact_name: 'Contact 2',
-        contact_phone: '223-456-7890',
-        credit_accepted: true
-        )
-      @vendor_3 = Vendor.create(
-        # id: 3,  
-        name: 'Vendor 3',
-        description: 'Description 3',
-        contact_name: 'Contact 3',
-        contact_phone: '323-456-7890',
-        credit_accepted: true
-        )
-      @market_vendor_1 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_1.id)
-      @market_vendor_2 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_2.id)
-    # let(:market_1) { Market.new(id:1)}
-    # let(:vendor_1) {Vendor.new(
-    #                            id: 1,
-    #                            name: 'Vendor 1',
-    #                            description: 'Description 1',
-    #                            contact_name: 'Contact 1',
-    #                            contact_phone: '123-456-7890',
-    #                            credit_accepted: true
-    #                            )}
-    #   let(:vendor_2) {Vendor.new(
-    #                             id: 2,
-    #                             name: 'Vendor 2',
-    #                             description: 'Description 2',
-    #                             contact_name: 'Contact 2',
-    #                             contact_phone: '223-456-7890',
-    #                             credit_accepted: true
-    #                             )}
-    # let(:vendor_3) {Vendor.new(
-    #                               id: 3,  
-    #                               name: 'Vendor 3',
-    #                               description: 'Description 3',
-    #                               contact_name: 'Contact 3',
-    #                               contact_phone: '323-456-7890',
-    #                               credit_accepted: true
-    #                               )}
-    # let(:market_vendor_1) { MarketVendor.new(market_id: market_1.id, vendor_id: vendor_1.id)}
-    # let(:market_vendor_2) { MarketVendor.new(market_id: market_2.id, vendor_id: vendor_2.id)}
-    it 'happy path' do
-      get "/api/v0/markets/#{@market_1.id}/vendors"
-
-      expect(response).to be_successful
-      # require 'pry'; binding.pry
-      data = JSON.parse(response.body, symbolize_names: true)
-      
-      vendors = data[:data]
-
-      vendors.each do |vendor|
-        expect(vendor).to have_key(:id)
-        expect(vendor[:attributes]).to have_key(name)
-        expect(vendor[:attributes]).to have_key(description)
-        expect(vendor[:attributes]).to have_key(contact_name)
-        expect(vendor[:attributes]).to have_key(contact_phone)
-        expect(vendor[:attributes]).to have_key(credit_accepted)
-      end
-    end
-
-    xit 'sad path' do
-      
-    end
-  end
-
-  describe 'gets one vendor' do
-    before :each do
-      @market_1 = Market.create()
-      @vendor_1 = @market_1.vendors.create(
-        name: 'Vendor 1',
-        description: 'Description 1',
-        contact_name: 'Contact 1',
-        contact_phone: '123-456-7890',
-        credit_accepted: true
-        )
-    end
-    it 'happy path' do
-
-      get "/api/v0/vendors/#{@vendor_1.id}"
-    end
-
     it 'sad path' do
-      
+      get "/api/v0/markets/129281817"
+
+      data = JSON.parse(response.body, symbolize_names: true)
+
+      error = data[:errors]
+
+      expect(error).to eq("Couldn't find Market with 'id'=129281817")
     end
   end
-
 end

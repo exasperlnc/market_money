@@ -4,8 +4,8 @@ class SearchFacade
     @name = params[:name]
     @city = params[:city]
   end
-  
+
   def find_market
-    Market.where("name ILIKE ? and city ILIKE ? and state ILIKE?", "%#{@name}%", "%#{@state}%", "%#{@city}%")
+    Market.where("name ILIKE ? and city ILIKE ? and state ILIKE ?", "%#{@name}%", "%#{@city}%", "%#{@state}%")
   end
 end

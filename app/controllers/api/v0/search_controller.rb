@@ -3,10 +3,8 @@ class Api::V0::SearchController < ApplicationController
 
   def index
     @facade = SearchFacade.new(search_params)
-    if !validate_params
-      render json: MarketSerializer.new(@facade.find_market)
-    else
-      ErrorMember.new("Invalid Search: search must not only be city, or be only city and state.", "INVALID PARAMS", 422)
+    @markets = @facade.find_market
+    render json: MarketSerializer.new(@markets)
     end
   end
 
@@ -17,7 +15,7 @@ class Api::V0::SearchController < ApplicationController
     end
 
     def only_city?
-      (params[:city].present? && !(params[:state].present? || params[:name].present?))
+      (params[:city].present? && (!params[:state].present? && !params[:name].present?))
     end
 
     def only_city_name?
@@ -25,6 +23,8 @@ class Api::V0::SearchController < ApplicationController
     end
 
     def validate_params
-      false if only_city? || only_city_name?
+      if only_city? || only_city_name?
+        error_message = "Invalid set of parameters. Please provide a valid set of parameters to perform a search with this endpoint."
+        render json: ErrorSerializer.serialize(error_message), status: 422
     end
 end

@@ -12,5 +12,6 @@ class AtmService
   def conn
     Faraday.new(url: "https://api.tomtom.com") do |faraday|
       faraday.params["key"] = ENV["atm_api"]
+    end
   end
 end

@@ -3,7 +3,11 @@ class Api::V0::SearchController < ApplicationController
 
   def index
     @facade = SeachFacade.new(search_params)
-    render json: MarketSerializer.new(@facade)
+    if !validate_params
+      render json: MarketSerializer.new(@facade)
+    else
+      ErrorMember.new("Invalid Search: search must not only be city, or be only city and state.", "INVALID PARAMS", 422)
+    end
   end
 
 

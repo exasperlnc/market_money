@@ -41,13 +41,18 @@ RSpec.describe "MarketVendors API" do
 
   describe 'deletes marketvendor' do
     it 'happy path' do
-      vendor = create(:vendor)
-      market = create(:market)
+      vendor_1 = create(:vendor)
+      market_1 = create(:market)
+
+      vendor_2 = create(:vendor)
+      market_2 = create(:market)
 
       market_vendor_params = ({
-        market_id: market.id,
-        vendor_id: vendor.id
+        market_id: market_1.id,
+        vendor_id: vendor_1.id
       })
+
+      MarketVendor.create(market_id: market_2.id, vendor_id: vendor_2.id)
       
       headers = {"CONTENT_TYPE" => "application/json"}
       post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: market_vendor_params)

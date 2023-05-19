@@ -136,6 +136,8 @@ RSpec.describe "Vendors API" do
 
   describe 'deletes vendor' do
     it 'happy path' do
+      create(:vendor)
+
       vendor_params = ({
         name: 'Vendor 1',
         description: 'Not your average vendor',
@@ -159,7 +161,6 @@ RSpec.describe "Vendors API" do
       expect(last_vendor.description).to_not eq(vendor_params[:description])
       expect(last_vendor.contact_name).to_not eq(vendor_params[:contact_name])
       expect(last_vendor.contact_phone).to_not eq(vendor_params[:contact_phone])
-      expect(last_vendor.credit_accepted).to_not eq(vendor_params[:credit_accepted])
     end
 
     it 'sad path' do

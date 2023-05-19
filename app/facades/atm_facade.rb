@@ -9,9 +9,9 @@ class AtmFacade
     service = AtmService.new
 
     json = service.get_atms(@lat, @lon)
-    
+
     @atms = json[:results].map do |result|
-      Atm.new(atm_data)
+      Atm.new(result)
     end
   end
 end

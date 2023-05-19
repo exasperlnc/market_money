@@ -4,7 +4,7 @@ class Api::V0::MarketVendorsController < ApplicationController
   def create
     market_vendor = MarketVendor.create(market_vendor_params)
     if market_vendor.valid?
-      render json: MarketVendorSerializer.new(market_vendor)
+      render json: MarketVendorSerializer.new(market_vendor), status: 201
     else
       render_failed_validation_response(market_vendor)
     end

@@ -14,6 +14,5 @@ class ApplicationController < ActionController::API
     errors = model.errors.full_messages.join(", ")
     error_message = "Validation failed: #{errors}"
     render json: ErrorSerializer.serialize(error_message), status: 400
-    require 'pry'; binding.pry
   end
 end

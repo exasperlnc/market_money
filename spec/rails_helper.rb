@@ -10,32 +10,6 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 
-def test_data
-  @market_1 = Market.create()
-      @vendor_1 = Vendor.create(
-        name: 'Vendor 1',
-        description: 'Description 1',
-        contact_name: 'Contact 1',
-        contact_phone: '123-456-7890',
-        credit_accepted: true
-        )
-      @vendor_2 = Vendor.create(
-        name: 'Vendor 2',
-        description: 'Description 2',
-        contact_name: 'Contact 2',
-        contact_phone: '223-456-7890',
-        credit_accepted: true
-        )
-      @vendor_3 = Vendor.create(
-        name: 'Vendor 3',
-        description: 'Description 3',
-        contact_name: 'Contact 3',
-        contact_phone: '323-456-7890',
-        credit_accepted: true
-        )
-      @market_vendor_1 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_1.id)
-      @market_vendor_2 = MarketVendor.create(market_id: @market_1.id, vendor_id: @vendor_2.id)
-end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end

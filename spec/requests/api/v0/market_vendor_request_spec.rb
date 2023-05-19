@@ -15,7 +15,7 @@ RSpec.describe "MarketVendors API" do
       post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: market_vendor_params)
 
       expect(response).to be_successful
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(201)
 
       market_vendor = MarketVendor.last
 
@@ -58,7 +58,7 @@ RSpec.describe "MarketVendors API" do
       post "/api/v0/market_vendors", headers: headers, params: JSON.generate(market_vendor: market_vendor_params)
 
       expect(response).to be_successful
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(201)
 
       market_vendor = MarketVendor.last
 

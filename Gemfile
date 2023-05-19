@@ -45,6 +45,7 @@ group :development, :test do
   gem 'faker'
   gem 'factory_bot_rails'
   gem 'figaro'
+  gem 'simplecov'
 end
 
 group :development do
@@ -55,7 +56,6 @@ end
 
 group :test do
   gem 'rspec-rails'
-  gem 'simplecov'
   gem 'shoulda-matchers'
 end
 

@@ -8,8 +8,11 @@ RSpec.describe "Vendors API" do
       vendor_1 = create(:vendor)
       vendor_2 = create(:vendor)
 
-      # MarketVendor.create(market_id: market_1.id, vendor_id: vendor_1.id)
-      # MarketVendor.create(market_id: market_1.id, vendor_id: vendor_2.id)
+      # Need to figure out how to add specific attributes
+      # to the market vendor create method
+      
+      # market_vendor_1 = create(:market_vendor)
+      # market_vendor_2 = create(:market_vendor)
 
       get "/api/v0/markets/#{market_1.id}/vendors"
 
